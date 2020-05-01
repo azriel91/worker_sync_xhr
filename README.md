@@ -6,7 +6,7 @@ Online at: <https://azriel.im/worker_sync_xhr/>
 
 Output:
 
-```js
+```rust
 21:45:04.769 main: creating worker
 21:45:04.828 worker: created
 21:45:06.498 ---
