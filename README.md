@@ -6,23 +6,22 @@ Online at: <https://azriel.im/worker_sync_xhr/>
 
 Output:
 
-* synchronous `main` thread:
-
-    ```js
-    21:02:40.205 main: wait begin
-    21:02:41.693 main: wait end
-    21:02:41.722 worker: request begin
-    21:02:41.733 worker: request end
-    ```
-
-* asynchronous `main` thread:
-
-    ```js
-    21:03:40.371 main: wait begin
-    21:03:40.402 worker: request begin
-    21:03:40.412 worker: request end
-    21:03:41.375 main: wait end
-    ```
+```js
+21:45:04.769 main: creating worker
+21:45:04.828 worker: created
+21:45:06.498 ---
+21:45:06.504 main (sync): sending message to worker
+21:45:06.505 main (sync): wait begin
+21:45:08.045 main (sync): wait end
+21:45:08.047 worker: request begin
+21:45:08.054 worker: request end
+21:45:11.884 ---
+21:45:11.888 main (async): sending message to worker
+21:45:11.889 main (async): wait begin
+21:45:11.896 worker: request begin
+21:45:11.968 worker: request end
+21:45:12.891 main (async): wait end
+```
 
 <details>
 <summary>Logic</summary>

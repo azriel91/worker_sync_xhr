@@ -1,7 +1,11 @@
-var xhr = new XMLHttpRequest();
+console.log("worker: created")
 
-xhr.open('GET', 'index.html', true);
-xhr.onloadstart = () => { console.log("worker: request begin"); };
-xhr.onload = () => { console.log("worker: request end"); };
+self.onmessage = (_msg) => {
+    var xhr = new XMLHttpRequest();
 
-xhr.send(null);
+    xhr.open('GET', 'index.html', true);
+    xhr.onloadstart = () => { console.log("worker: request begin"); };
+    xhr.onload = () => { console.log("worker: request end"); };
+
+    xhr.send(null);
+}

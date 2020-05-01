@@ -5,28 +5,39 @@
     <button>async</button>
 
     <script type="text/javascript">
+        console.log("main: creating worker");
+        let worker = new Worker('worker.js');
+
         function sync_worker() {
             console.log("---");
-            var myWorker = new Worker('worker.js');
 
-            console.log("main: wait begin");
+            window.requestAnimationFrame(() => {
+                console.log("main (sync): sending message to worker");
+                worker.postMessage({});
 
-            // Need to use a loop, because there is no `sleep` in synchronous functions.
-            let count = 0;
-            while (count < 2000000000) { count++; }
+                console.log("main (sync): wait begin");
 
-            console.log("main: wait end");
+                // Need to use a loop, because there is no `sleep` in synchronous functions.
+                let count = 0;
+                while (count < 2000000000) { count++; }
+
+                console.log("main (sync): wait end");
+            })
         };
 
         async function async_worker() {
             console.log("---");
-            var myWorker = new Worker('worker.js');
 
-            console.log("main: wait begin");
+            window.requestAnimationFrame(async () => {
+                console.log("main (async): sending message to worker");
+                worker.postMessage({});
 
-            await new Promise(r => setTimeout(r, 1000));
+                console.log("main (async): wait begin");
 
-            console.log("main: wait end");
+                await new Promise(r => setTimeout(r, 1000));
+
+                console.log("main (async): wait end");
+            });
         }
 
         window.onload = function() {
