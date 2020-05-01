@@ -1,0 +1,30 @@
+<html>
+<head><meta content="text/html;charset=utf-8" http-equiv="Content-Type"/></head>
+<body>
+    <script type="text/javascript">
+        function sync_worker() {
+            var myWorker = new Worker('worker.js');
+
+            console.log("main: wait begin");
+
+            // Need to use a loop, because there is no `sleep` in synchronous functions.
+            let count = 0;
+            while (count < 2000000000) { count++; }
+
+            console.log("main: wait end");
+        };
+
+        async function async_worker() {
+            var myWorker = new Worker('worker.js');
+
+            console.log("main: wait begin");
+            await new Promise(r => setTimeout(r, 1000));
+            console.log("main: wait end");
+        }
+
+        // Choose one:
+        // window.onload = sync_worker;
+        window.onload = async_worker;
+    </script>
+</body>
+</html>
