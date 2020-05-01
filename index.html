@@ -1,8 +1,12 @@
 <html>
 <head><meta content="text/html;charset=utf-8" http-equiv="Content-Type"/></head>
 <body>
+    <button>sync</button>
+    <button>async</button>
+
     <script type="text/javascript">
         function sync_worker() {
+            console.log("---");
             var myWorker = new Worker('worker.js');
 
             console.log("main: wait begin");
@@ -15,16 +19,22 @@
         };
 
         async function async_worker() {
+            console.log("---");
             var myWorker = new Worker('worker.js');
 
             console.log("main: wait begin");
+
             await new Promise(r => setTimeout(r, 1000));
+
             console.log("main: wait end");
         }
 
-        // Choose one:
-        // window.onload = sync_worker;
-        window.onload = async_worker;
+        window.onload = function() {
+            const buttonSync = document.querySelector('button:nth-of-type(1)');
+            const buttonAsync = document.querySelector('button:nth-of-type(2)');
+            buttonSync.onclick = sync_worker;
+            buttonAsync.onclick = async_worker;
+        }
     </script>
 </body>
 </html>
